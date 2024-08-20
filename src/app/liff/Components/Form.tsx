@@ -1,17 +1,18 @@
+"use client";
+
 import React, { useState } from 'react';
 import List from "./List";
 
-//setStorageValueの中ではローカルストレージとstatusの同期が行われている
-
 export default function Form() {
 	const key = "memo-list"
-	const item = localStorage.getItem(key)
-	let initValue = []
-	if (item)
+	if (typeof window !== 'undefined') {
+		console.log('we are not  running on the client')
+	}
+		let item = localStorage.getItem(key)
+		let initValue = []
+		if (item)
 		initValue = JSON.parse(item)
 	const [memoList, setValues] = useState<string[]>(initValue);
-
-
 
 
     const [text, setNewText] = useState<string>('');
@@ -27,7 +28,9 @@ export default function Form() {
         const newMemo: string = text;
         setValues(prevMemoList => {
 			const updatedList = [...prevMemoList, newMemo]
-			localStorage.setItem(key, JSON.stringify(updatedList));
+
+				localStorage.setItem(key, JSON.stringify(updatedList));
+			
 			return updatedList
 		}
 		);
@@ -38,7 +41,9 @@ export default function Form() {
         setValues(prevMemoList => {
             const updatedList = [...prevMemoList];
             updatedList.splice(index, 1);
-			localStorage.setItem(key, JSON.stringify(updatedList));
+		
+				localStorage.setItem(key, JSON.stringify(updatedList));
+		
             return updatedList;
         });
     };
