@@ -1,52 +1,64 @@
 import React, { useState } from 'react';
-import CompleteList from "./CompleteLists";
+import List from "./List";
 
-interface Todo {
-    task: string;
-    isCompleted: boolean;
-}
+//setStorageValueの中ではローカルストレージとstatusの同期が行われている
 
 export default function Form() {
-    const [todoText, setTodoText] = useState<string>('');
-    const [textList, setTextList] = useState<Todo[]>([]);
+	const key = "memo-list"
+	const item = localStorage.getItem(key)
+	let initValue = []
+	if (item)
+		initValue = JSON.parse(item)
+	const [memoList, setValues] = useState<string[]>(initValue);
+
+
+
+
+    const [text, setNewText] = useState<string>('');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = 'auto' 
 		e.target.style.height = `${e.target.scrollHeight}px` 
-        setTodoText(e.target.value);
+        setNewText(e.target.value);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const newTodo: Todo = {
-            task: todoText,
-            isCompleted: false
-        };
-        setTextList(prevTextList => [...prevTextList, newTodo]);
-        setTodoText('');
+        const newMemo: string = text;
+        setValues(prevMemoList => {
+			const updatedList = [...prevMemoList, newMemo]
+			localStorage.setItem(key, JSON.stringify(updatedList));
+			return updatedList
+		}
+		);
+        setNewText('');
     };
 
     const handleDelete = (index: number) => {
-        setTextList(prevTextList => {
-            const updatedList = [...prevTextList];
+        setValues(prevMemoList => {
+            const updatedList = [...prevMemoList];
             updatedList.splice(index, 1);
+			localStorage.setItem(key, JSON.stringify(updatedList));
             return updatedList;
         });
     };
 
     return (
         <div className="px-4 py-4 sm:p-6">
-            <div className="mb-4">
+			<List memoList={memoList} onDelete={handleDelete}/>
+			<br></br>
+			<div className="mb-1">
                 <form onSubmit={handleSubmit}>
                     <textarea
-                        className="w-[300px] resize-none overflow-hidden border p-3 text-sm"
+                        className="resize-none overflow-hidden border p-8 "
                         placeholder="メモを入力してください"
-                        value={todoText}
-                        onChange={handleInputChange}></textarea>
+                        value={text}
+                        onChange={handleInputChange}
+					>
+					</textarea>
                     	<p><button className="bg-green-900 text-white px-8 py-2 rounded-md" type="submit">add</button></p>
                 </form>
             </div>
-            <CompleteList textList={textList} onDelete={handleDelete}/>
         </div>
     );
 }
