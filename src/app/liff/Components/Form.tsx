@@ -11,8 +11,8 @@ export default function Form() {
 	if (item) {
 		initValue = JSON.parse(item);
 	}
-	const [memoList, setValues] = useState<string[]>(initValue);
 
+	const [memoList, setValues] = useState<string[]>(initValue);
     const [text, setNewText] = useState<string>('');
 
 	const callback = (e: StorageEvent) => {
@@ -37,12 +37,6 @@ export default function Form() {
 		};
 	}, []); 
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		e.target.style.height = 'auto' 
-		e.target.style.height = `${e.target.scrollHeight}px` 
-        setNewText(e.target.value);
-    };
-
 	useEffect(() => {
 		const target = document.getElementById("my_textarea");
 		if (target) {
@@ -50,6 +44,10 @@ export default function Form() {
 		target.style.height = `${target.scrollHeight}px`
 		}
 	  }, [text])
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setNewText(e.target.value);
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
