@@ -1,1 +1,19 @@
+name: Reminder
+
+on:
+  schedule:
+    - cron: "00 0-1/1 * * *"
+  # 手動実行用
+  workflow_dispatch:
+#　データベースのリマインドカウントカラム(>=1)を1減らして0になったら(userIDに紐付いた)メモをリマインドするapiを毎日0時に呼び出し
+#  チャットでは何日後(>=1)にリマインドするか入力させる
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: try_remind
+        run: |
+          curl 'https://aichida-training-git-main-aois-projects-232ac436.vercel.app/api/reminder' 
+		  
+
 
