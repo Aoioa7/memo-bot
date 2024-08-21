@@ -12,8 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: try_remind
-        run: |
-          curl 'https://aichida-training-git-main-aois-projects-232ac436.vercel.app/api/reminder' 
-		  
-
-
+        run: curl 'https://aichida-training-git-main-aois-projects-232ac436.vercel.app/api/reminder' 
