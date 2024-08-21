@@ -1,5 +1,5 @@
 "use client";
-import react, { useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 
 import Form from "./Components/Form";
@@ -16,7 +16,7 @@ export default function Home() {
 		console.log('we are not  running on the client')
 	}
 	
-	  if (mounted) {
+	if (mounted) {
 		return (
 			<main className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
 			  <div className="max-w-md mx-auto bg-green-100  shadow-md">
@@ -24,6 +24,6 @@ export default function Home() {
 				<Form/>
 			  </div>
 			</main>
-		  )
-		}
+		)
+	}
 }

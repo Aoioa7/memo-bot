@@ -1,21 +1,41 @@
 "use client";
 
+import { useEffect } from 'react'
 import React, { useState } from 'react';
 import List from "./List";
 
 export default function Form() {
 	const key = "memo-list"
-	if (typeof window !== 'undefined') {
-		console.log('we are not  running on the client')
+	let item = localStorage.getItem(key)
+	let initValue = []
+	if (item) {
+		initValue = JSON.parse(item);
 	}
-		let item = localStorage.getItem(key)
-		let initValue = []
-		if (item)
-		initValue = JSON.parse(item)
 	const [memoList, setValues] = useState<string[]>(initValue);
 
-
     const [text, setNewText] = useState<string>('');
+
+	const callback = (e: StorageEvent) => {
+		if (e.key === key) {
+		  setValues(
+			prevMemoList => {
+				const updatedItem = localStorage.getItem(key)
+				let updatedList = prevMemoList
+				if (updatedItem) {
+					updatedList =JSON.parse(updatedItem)
+				}
+				return updatedList
+				}
+		  );
+		}
+	};
+	  
+	useEffect(() => {
+		window.addEventListener('storage', callback);
+		return () => {
+		  window.removeEventListener('storage', callback);
+		};
+	}, []); 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = 'auto' 
@@ -27,11 +47,9 @@ export default function Form() {
         e.preventDefault();
         const newMemo: string = text;
         setValues(prevMemoList => {
-			const updatedList = [...prevMemoList, newMemo]
-
-				localStorage.setItem(key, JSON.stringify(updatedList));
-			
-			return updatedList
+		const updatedList = [...prevMemoList, newMemo]
+		localStorage.setItem(key, JSON.stringify(updatedList));
+		return updatedList
 		}
 		);
         setNewText('');
@@ -39,12 +57,10 @@ export default function Form() {
 
     const handleDelete = (index: number) => {
         setValues(prevMemoList => {
-            const updatedList = [...prevMemoList];
-            updatedList.splice(index, 1);
-		
-				localStorage.setItem(key, JSON.stringify(updatedList));
-		
-            return updatedList;
+        const updatedList = [...prevMemoList];
+        updatedList.splice(index, 1);
+		localStorage.setItem(key, JSON.stringify(updatedList));
+		return updatedList;
         });
     };
 
