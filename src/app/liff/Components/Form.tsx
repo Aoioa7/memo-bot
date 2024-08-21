@@ -43,6 +43,14 @@ export default function Form() {
         setNewText(e.target.value);
     };
 
+	useEffect(() => {
+		const target = document.getElementById("my_textarea");
+		if (target) {
+		target.style.height = 'auto' 
+		target.style.height = `${target.scrollHeight}px`
+		}
+	  }, [text])
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 		if (!text) {
@@ -56,7 +64,7 @@ export default function Form() {
 		return updatedList
 		}
 		);
-        setNewText('');
+		setNewText('');
     };
 
     const handleDelete = (index: number) => {
@@ -75,6 +83,7 @@ export default function Form() {
 			<div className="mb-1">
                 <form onSubmit={handleSubmit}>
                     <textarea
+						id = "my_textarea"
                         className="resize-none overflow-hidden border p-8 "
                         placeholder="メモを入力してください"
                         value={text}
