@@ -6,7 +6,7 @@ import List from "./List";
 
 export default function Form() {
 	const key = "memo-list"
-	let item = localStorage.getItem(key)
+	const item = localStorage.getItem(key)
 	let initValue = []
 	if (item) {
 		initValue = JSON.parse(item);
@@ -45,6 +45,10 @@ export default function Form() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+		if (!text) {
+			alert("何か入力してね！(空白や改行でもOK)");
+			return
+		}
         const newMemo: string = text;
         setValues(prevMemoList => {
 		const updatedList = [...prevMemoList, newMemo]
