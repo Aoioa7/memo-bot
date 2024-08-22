@@ -7,11 +7,15 @@
 #### /api/remindにGitHubActionsで定期的にリクエストを送信しています(.github/workflows/main.yml)
 
 #### 開発環境と使用言語
-MacOS
-Next.js(TypeScript)
+- MacOS
+- Next.js
+TypeScript
 #### デプロイ先とデータベース
-Vercel
-VercelPostgres(userInfo{userID,userMode}、memoInfo{memoID,title,content,userID,remindCount})
+- Vercel
+- VercelPostgres
+userInfo{userID char(33),userMode smallint default(-1),memoID char(26)}
+memoInfo{memoID char(26),title varchar(20) default("タイトル未設定"),content text,userID char(33),remindCount smallint default(NULL)}
+
 
 # ---
 

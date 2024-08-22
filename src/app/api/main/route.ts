@@ -27,7 +27,13 @@ export async function POST(request: Request) {
 	else if (2) {
 		//メモ内容登録モード(メモ内容)
 
-		//関数->writememo
+		//関数->write
+	}
+	else if(3) {
+		//リマインド登録モード(何日後にリマインドするか)、
+		//ここまでのinsert(memoID,userID)->update(content)->update(remindCount)の流れで3チャットひとまとまり
+
+		//関数->count
 	}
 	//response
 	return Response.json({ status: "OK" }) 
