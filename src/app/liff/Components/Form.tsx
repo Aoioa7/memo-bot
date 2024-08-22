@@ -29,14 +29,14 @@ export default function Form() {
 		  );
 		}
 	};
-	  
+	//別のタブやウィンドウのローカルストレージとの同期
 	useEffect(() => {
 		window.addEventListener('storage', callback);
 		return () => {
 		  window.removeEventListener('storage', callback);
 		};
 	}, []); 
-
+	//入力文字数に応じて大きさ変化(useEffectを使わないとstate変化->レンダリング->値の更新となる、値の更新を先にやりたい)
 	useEffect(() => {
 		const target = document.getElementById("my_textarea");
 		if (target) {
@@ -49,6 +49,7 @@ export default function Form() {
         setNewText(e.target.value);
     };
 
+	//stateとlocalStorageを同期したい
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 		if (!text) {

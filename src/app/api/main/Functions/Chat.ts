@@ -1,0 +1,1 @@
+//geminiAPIにPOST->MessagingAPIにPOST

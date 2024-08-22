@@ -1,32 +1,34 @@
 
 export async function POST(request: Request) {
-	//request-check
-
-	//follow
+	//webhook->follow
 	if (-1) {
-		//処理内容
+		//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 
 	}
-	//send
+	//webhook->send
 	if (0) {
 		//AIチャットモード(適当なチャット/@memo-mode)
 
-		//関数
+		//@memo-mode分岐
+
+		//関数->chat
 
 	}
 	else if (1) {
 		//メモ操作モード(create タイトル/delete メモID/memo/@chat-mode)
 
-		//関数
+		//@chat-mode分岐
+
+		//関数->creatememo/deletememo/memolist
 
 	}
 	else if (2) {
-		//メモ内容登録モード(メモ内容送信)
+		//メモ内容登録モード(メモ内容)
 
-		//関数
+		//関数->writememo
 	}
 	//response
 	return Response.json({ status: "OK" }) 
 }
 
-//フォーマットのエラーハンドリング
+//フォーマットのエラーハンドリング忘れない

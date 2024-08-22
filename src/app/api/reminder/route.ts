@@ -1,11 +1,11 @@
 
 export async function GET (request: Request) {
-	//request-check
+	//db(remindCount--)
 
-	//db
-
-	//process
+	//process(dbでremindCountカラムが0になっていた場合NULLを埋めて、contentカラムを取り出す)
 
 	//response
 	return Response.json({ status: "OK" }) 
 }
+
+//GitHubActionsのschedule,cronで毎日0-1時に1回呼び出されるAPIとして実装

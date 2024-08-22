@@ -1,0 +1,1 @@
+//memoIDでdelete、userModeそのまま

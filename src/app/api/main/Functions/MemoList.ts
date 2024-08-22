@@ -1,0 +1,1 @@
+//userIDでメモ全表示、userModeそのまま
