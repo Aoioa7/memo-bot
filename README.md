@@ -8,13 +8,14 @@
 
 #### 開発環境と使用言語
 - MacOS
-- Next.js
+- Next.js(TypeScript)
 ##### TypeScript
 #### デプロイ先とデータベース
 - Vercel
 - VercelPostgres
-##### userInfo{userID char(33),userMode smallint default(-1),memoID char(26) default(NULL)}
-##### memoInfo{memoID char(26),title varchar(20) default("タイトル未設定"),content text,userID char(33),remindCount smallint default(NULL)}
+##### テーブル
+- userInfo{userID char(33),userMode smallint default(-1),memoID char(26) default(NULL)}
+- memoInfo{memoID char(26),title varchar(20) default("タイトル未設定"),content text,userID char(33),remindCount smallint default(NULL)}
 
 
 # ---
