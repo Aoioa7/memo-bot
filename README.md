@@ -6,6 +6,15 @@
 #### /api/mainをwebhookURLに登録しています
 #### /api/remindにGitHubActionsで定期的にリクエストを送信しています(.github/workflows/main.yml)
 
+#####　開発環境、使用言語
+MacOS
+Next.js(TypeScript)
+##### デプロイ先、データベース
+Vercel
+VercelPostgres(userInfo{userID,userMode}、memoInfo{memoID,title,content,userID,remindCount})
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

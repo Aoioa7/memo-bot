@@ -1,3 +1,5 @@
+import { db } from '@vercel/postgres';
+import { NextApiResponse } from 'next';
 
 export async function POST(request: Request) {
 	//webhook->follow
