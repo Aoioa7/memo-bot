@@ -1,15 +1,18 @@
 ## このLINE BOTはLIFFでメモ操作(フォーム入力とボタン押下)、チャットでメモ操作&AIとのお喋り&メモのリマインドが出来ます。「@835eadwi」で検索してお試しください!
 
+## ---
+
 ### デプロイしたURLはこちら
 #### https://aichida-training-2hzid9e4d-aois-projects-232ac436.vercel.app/
 #### /liffのエンドポイントで、リッチメニューのリンクと同じ場所(メモ管理フォーム)に飛びます！
 #### /api/mainをwebhookURLに登録しています
 #### /api/remindにGitHubActionsで定期的にリクエストを送信しています(.github/workflows/main.yml)
 
+## ---
+
 #### 開発環境と使用言語
 - MacOS
 - Next.js(TypeScript)
-##### TypeScript
 #### デプロイ先とデータベース
 - Vercel
 - VercelPostgres
@@ -17,8 +20,7 @@
 - userInfo{userID char(33),userMode smallint default(-1),memoID char(26) default(NULL)}
 - memoInfo{memoID char(26),title varchar(20) default("タイトル未設定"),content text,userID char(33),remindCount smallint default(NULL)}
 
-
-# ---
+# -----
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
