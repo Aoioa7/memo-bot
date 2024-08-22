@@ -1,7 +1,10 @@
-# このLINE BOTはLIFFでメモ操作(フォーム入力とボタン押下)、チャットでメモ操作&AIとのお喋り&メモのリマインドが出来ます。「@835eadwi」で検索してお試しください
+## このLINE BOTはLIFFでメモ操作(フォーム入力とボタン押下)、チャットでメモ操作&AIとのお喋り&メモのリマインドが出来ます。「@835eadwi」で検索してお試しください!
 
-#### デプロイしたURLはこちら
-### https://aichida-training-2hzid9e4d-aois-projects-232ac436.vercel.app/
+### デプロイしたURLはこちら
+#### https://aichida-training-2hzid9e4d-aois-projects-232ac436.vercel.app/
+#### /liffのエンドポイントで、リッチメニューのリンクと同じ場所(メモ管理フォーム)に飛びます！
+#### /api/mainをwebhookURLに登録しています
+#### /api/remindにGitHubActionsで定期的にリクエストを送信しています(.github/workflows/main.yml)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
