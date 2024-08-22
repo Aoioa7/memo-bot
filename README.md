@@ -1,7 +1,5 @@
 ## このLINE BOTはLIFFでメモ操作(フォーム入力とボタン押下)、チャットでメモ操作&AIとのお喋り&メモのリマインドが出来ます。「@835eadwi」で検索してお試しください!
 
-## ---
-
 ### デプロイしたURLはこちら
 #### https://aichida-training-2hzid9e4d-aois-projects-232ac436.vercel.app/
 #### /liffのエンドポイントで、リッチメニューのリンクと同じ場所(メモ管理フォーム)に飛びます！
@@ -17,8 +15,10 @@
 - Vercel
 - VercelPostgres
 ##### テーブル
-- userInfo{userID char(33),userMode smallint default(-1),memoID char(26) default(NULL)}
-- memoInfo{memoID char(26),title varchar(20) default("タイトル未設定"),content text,userID char(33),remindCount smallint default(NULL)}
+- userinfo
+<img width="280" alt="スクリーンショット 2024-08-22 14 38 50" src="https://github.com/user-attachments/assets/22967460-2cac-461a-b2e4-188b40d570e0">
+- memoInfo
+<img width="373" alt="スクリーンショット 2024-08-22 14 46 08" src="https://github.com/user-attachments/assets/1c8ec918-e190-49dc-873e-41c72a28e933">
 
 # -----
 
