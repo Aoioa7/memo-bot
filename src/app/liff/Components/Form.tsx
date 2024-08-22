@@ -96,8 +96,8 @@ export default function Form() {
                         onChange={handleInputChange}
 					>
 					</textarea>
-                    	<p><button className="bg-green-700 text-white px-8 py-2 rounded-md sm:p-7" type="submit">add</button><>	</>
-						<button className="bg-orange-300 text-white px-10 py-2 rounded-md sm:py-3" 
+                    	<p><button className="bg-green-700 text-white px-8 py-2 rounded-md sm:p-6" type="submit">add</button><>	</>
+						<button className="bg-orange-300 text-white px-10 py-2 rounded-md sm:p-6" 
 							type="button"
 							onClick={handleClean}
 						>clean</button></p>
