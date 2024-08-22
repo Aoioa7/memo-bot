@@ -75,10 +75,17 @@ export default function Form() {
         });
     };
 
+	const handleClean = () => {
+			setNewText('');
+	}
+
+	const countInput = () => {
+		return text.length
+	}
+
     return (
-        <div className="px-4 py-4 sm:p-6">
-			<List memoList={memoList} onDelete={handleDelete}/>
-			<br></br>
+        <div className="px-4 py-4 sm:px-8">
+			<List memoList={memoList} onDelete={handleDelete}/><br/>
 			<div className="mb-1">
                 <form onSubmit={handleSubmit}>
                     <textarea
@@ -89,9 +96,16 @@ export default function Form() {
                         onChange={handleInputChange}
 					>
 					</textarea>
-                    	<p><button className="bg-green-900 text-white px-8 py-2 rounded-md" type="submit">add</button></p>
+                    	<p><button className="bg-green-700 text-white px-8 py-2 rounded-md sm:p-7" type="submit">add</button><>	</>
+						<button className="bg-orange-300 text-white px-10 py-2 rounded-md sm:py-3" 
+							type="button"
+							onClick={handleClean}
+						>clean</button></p>
                 </form>
-            </div>
+            </div><br/>
+			<div className="bg-orange-500 text-white sm:px-1">入力文字数</div>
+			<p>{[...text.replace(/( )|(　)|(\n)|(\r)/g,'')].length}</p>
+			{/*一部の絵文字以外は対応可能、空白改行抜き、半角全角同等*/}
         </div>
     );
 }
