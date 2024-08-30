@@ -7,7 +7,6 @@ const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
 	channelSecret: process.env.CHANNEL_SECRET,
 };
-const client = new line.Client(config);
 
 export async function POST(request: Request) {
 	const client = new line.Client(config);
@@ -16,9 +15,9 @@ export async function POST(request: Request) {
 	const id = e.source.userID;
 
 	const db_client =  await db.connect();
-	const count = await db_client.sql`SELECT COUNT(*) FROM userInfo WHERE userID = ${id};`
+	const exi = await db_client.sql`SELECT EXISTS(SELECT 1 FROM userInfo WHERE userID = ${id};);`
 
-	if (Number(count) == 0) {
+	if (Number(exi) == 0) {
 		await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1);`
 	}
 	const userMode = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id};`
@@ -31,7 +30,7 @@ export async function POST(request: Request) {
 		//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: JSON.stringify(count)+" "+e.message.text+" -> "+response.text()
+			text: JSON.stringify(exi)+e.message.text+" -> "+response.text()
 		});
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 		
