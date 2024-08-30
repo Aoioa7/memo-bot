@@ -31,11 +31,7 @@ export async function POST(request: Request) {
 		//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: e.message.text+" -> "+response.text()
-		});
-		client.replyMessage(e.replyToken, {
-			type: 'text',
-			text: count+" "+Number(userMode)
+			text: JSON.stringify(count)+" "+e.message.text+" -> "+response.text()
 		});
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 		
