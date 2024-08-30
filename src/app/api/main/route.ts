@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 	const db_response = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id}`
 	const mode = await db_response.rows[0].usermode
 
-	if (mode == -1 && e.message != "@memo-mode") {
+	if (mode == -1 && e.message != "memo-mode") {
 		const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 		const result = await model.generateContentStream(e.message.text);
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 		//
 		
 	}
-	else if (mode == -1 && e.message == "@memo-mode") {
+	else if (mode == -1 && e.message == "memo-mode") {
 		client.replyMessage(e.replyToken, {
 			type: 'text',
 			text: "メモモード開始"
