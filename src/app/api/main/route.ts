@@ -2,37 +2,36 @@ import { db } from '@vercel/postgres';
 import * as line from "@line/bot-sdk";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const geminiApiKey = process.env.GEMINI_API_KEY
 const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
 	channelSecret: process.env.CHANNEL_SECRET,
 };
+const client = new line.Client(config);
 
 export async function POST(request: Request) {
-	const client = new line.Client(config);
 	const req = await request.json();
 	const e = req.events[0];
 	const id = e.source.userID;
 
 	const db_client =  await db.connect();
-	const exi = await db_client.sql`SELECT EXISTS(SELECT 1 FROM userInfo WHERE userID = ${id};);`
-
-	if (Number(exi) == 0) {
+	const flag = await db_client.sql`SELECT EXISTS(SELECT 1 FROM userInfo WHERE userID=${id};);`
+	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
+	if (Boolean(flag) == false) {
 		await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1);`
 	}
 	const userMode = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id};`
 
-	if (e.message != "@memo-mode") {
-		const genAI = new GoogleGenerativeAI(geminiApiKey || "");
+	if (1) {
+		const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 		const result = await model.generateContentStream(e.message.text);
 		const response = await result.response
-		//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
+		
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: JSON.stringify(exi)+e.message.text+" -> "+response.text()
+			text: userMode+" "+JSON.stringify(flag)+e.message.text+" -> "+response.text(),
 		});
-	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
+		//
 		
 	}
 	else if (e.message == "@memo-mode") {
