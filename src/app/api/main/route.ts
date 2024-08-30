@@ -16,8 +16,9 @@ export async function POST(request: Request) {
 	const db_client =  await db.connect();
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 	await db_client.sql`INSERT INTO userInfo (userID) SELECT ${id} WHERE NOT EXISTS (SELECT 1 FROM userInfo WHERE userID=${id});`
+	const mode = db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id}`
 
-	if (1) {
+	if (e.message != "@memo-mode") {
 		const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 		const result = await model.generateContentStream(e.message.text);
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
 		
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: id+" "+e.message.text+" -> "+response.text(),
+			text: id+" "+JSON.stringify(mode)+" "+e.message.text+" -> "+response.text(),
 		});
 		//
 		
