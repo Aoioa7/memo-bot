@@ -11,14 +11,14 @@ const client = new line.Client(config);
 export async function POST(request: Request) {
 	const req = await request.json();
 	const e = req.events[0];
-	client.replyMessage(e.replyToken, {
-		type: 'text',
-		text: "POST",
-	});
 	const id = e.source.userID;
 
 	const db_client =  await db.connect();
 	const flag = await db_client.sql`SELECT EXISTS(SELECT 1 FROM userInfo WHERE userID=${id};);`
+	client.replyMessage(e.replyToken, {
+		type: 'text',
+		text: "POST",
+	});
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 	if (Boolean(flag) == false) {
 		await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1);`
