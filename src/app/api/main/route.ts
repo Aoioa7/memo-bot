@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 	const e = req.events[0]
 	client.replyMessage(e.replyToken, {
 		type: 'text',
-		text: e.type+" "+e.message
+		text: e.message.text
 	  });
 	if (-1) {
 		//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
