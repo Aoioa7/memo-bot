@@ -14,12 +14,8 @@ export async function POST(request: Request) {
 	const id = e.source.userID;
 
 	const db_client =  await db.connect();
-	client.replyMessage(e.replyToken, {
-		type: 'text',
-		text: "post"
-	});
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
-	await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1) WHERE NOT EXISTS (SELECT userID FROM userInfo WHERE userID=${id});`
+	await db_client.sql`INSERT INTO userInfo (userID) SELECT ${id} WHERE NOT EXISTS (SELECT 1 FROM userInfo WHERE userID=${id});`
 	const userMode = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id};`
 	client.replyMessage(e.replyToken, {
 		type: 'text',
