@@ -1,6 +1,9 @@
 import { db } from '@vercel/postgres';
 import * as line from "@line/bot-sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
+//後でこれらは環境変数とする
+const geminiApiKey = "AIzaSyAV3q85PmAoLtzOWyNi1ABaCBx6SwDA0d4"
 const config = {
 	channelAccessToken: "M9JmwBsAI+yLEjjRh/YTiU6J8/5KbL4zC4+NupuOd1C8z/d+Hs4Mdj3iRVrNsc1B/EXdz+Z8pgGvXl1il4Ncxd8gyY+dewGV916He+2RxmRmb7KqknBzZ5b31QTWPG+QIMJJ8N/IS98XPNCDRGyn9gdB04t89/1O/w1cDnyilFU=",
 	channelSecret: "a9bcb9bdc652fe28c1f1384325031b59",
@@ -13,10 +16,14 @@ export async function POST(request: Request) {
 	const e = req.events[0]
 
 	if (1) {
+		const genAI = new GoogleGenerativeAI(geminiApiKey);
+		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+		const result = await model.generateContentStream(e.message.text);
+		const response = await result.response
 		//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: e.message+"|"+e.message.text+"|"+e.message["text"]
+			text: e.message.text+" -> "+response.text()
 	});
 		
 	}
@@ -50,7 +57,7 @@ export async function POST(request: Request) {
 		//関数->count
 	}
 	//response
-	return  Response.json({ id: 1, name: 'Mike' });
+	return  Response.json({ status: 'OK' });
 }
 
 //フォーマットのエラーハンドリング忘れない

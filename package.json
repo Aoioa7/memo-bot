@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.17.1",
     "@line/bot-sdk": "^9.3.1",
     "@vercel/postgres": "^0.9.0",
     "cross-env": "^7.0.3",
