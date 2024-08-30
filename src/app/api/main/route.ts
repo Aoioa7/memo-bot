@@ -21,9 +21,9 @@ export async function POST(request: Request) {
 	if (Number(count) == 0) {
 		await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1);`
 	}
-	await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id};`
+	const userMode = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id};`
 
-	if (id && e.message != "@memo-mode") {
+	if (Number(userMode) == 0 && e.message != "@memo-mode") {
 		const genAI = new GoogleGenerativeAI(geminiApiKey || "");
 		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 		const result = await model.generateContentStream(e.message.text);
@@ -36,8 +36,11 @@ export async function POST(request: Request) {
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
 		
 	}
-	else if (id && e.message == "@memo-mode") {
-
+	else if (Number(userMode) == 0 && e.message == "@memo-mode") {
+		client.replyMessage(e.replyToken, {
+			type: 'text',
+			text: "メモモード開始"
+		})
 	}
 	//webhook->send
 	if (1) {
