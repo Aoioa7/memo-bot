@@ -3,10 +3,10 @@ import * as line from "@line/bot-sdk";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 //後でこれらは環境変数とする
-const geminiApiKey = "AIzaSyAV3q85PmAoLtzOWyNi1ABaCBx6SwDA0d4"
+const geminiApiKey = process.env.GEMINI_API_KEY
 const config = {
-	channelAccessToken: "M9JmwBsAI+yLEjjRh/YTiU6J8/5KbL4zC4+NupuOd1C8z/d+Hs4Mdj3iRVrNsc1B/EXdz+Z8pgGvXl1il4Ncxd8gyY+dewGV916He+2RxmRmb7KqknBzZ5b31QTWPG+QIMJJ8N/IS98XPNCDRGyn9gdB04t89/1O/w1cDnyilFU=",
-	channelSecret: "a9bcb9bdc652fe28c1f1384325031b59",
+	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "",
+	channelSecret: process.env.CHANNEL_SECRET,
 };
 const client = new line.Client(config);
 
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 	const e = req.events[0]
 
 	if (1) {
-		const genAI = new GoogleGenerativeAI(geminiApiKey);
+		const genAI = new GoogleGenerativeAI(geminiApiKey || "");
 		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 		const result = await model.generateContentStream(e.message.text);
 		const response = await result.response
