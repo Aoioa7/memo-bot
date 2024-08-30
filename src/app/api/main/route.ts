@@ -11,6 +11,10 @@ const client = new line.Client(config);
 export async function POST(request: Request) {
 	const req = await request.json();
 	const e = req.events[0];
+	client.replyMessage(e.replyToken, {
+		type: 'text',
+		text: "POST",
+	});
 	const id = e.source.userID;
 
 	const db_client =  await db.connect();
