@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 		
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: userMode+" "+e.message.text+" -> "+response.text(),
+			text: id+JSON.stringify(userMode)+" "+e.message.text+" -> "+response.text(),
 		});
 		//
 		
