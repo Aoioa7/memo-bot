@@ -14,15 +14,8 @@ export async function POST(request: Request) {
 	const id = e.source.userID;
 
 	const db_client =  await db.connect();
-	const flag = await db_client.sql`SELECT EXISTS(SELECT 1 FROM userInfo WHERE userID=${id};);`
-	client.replyMessage(e.replyToken, {
-		type: 'text',
-		text: "POST",
-	});
 	//初回の処理内容(webhookのuserIDをuserInfoテーブルに登録)
-	if (Boolean(flag) == false) {
-		await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1);`
-	}
+	await db_client.sql`INSERT INTO userInfo (userID,userMode) VALUES (${id},-1) WHERE NOT EXISTS (SELECT userID FROM userInfo WHERE userID=${id});`
 	const userMode = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id};`
 
 	if (1) {
@@ -33,7 +26,7 @@ export async function POST(request: Request) {
 		
 		client.replyMessage(e.replyToken, {
 			type: 'text',
-			text: userMode+" "+JSON.stringify(flag)+e.message.text+" -> "+response.text(),
+			text: userMode+" "+e.message.text+" -> "+response.text(),
 		});
 		//
 		
