@@ -18,7 +18,7 @@ export default function List({ memoList, onDelete }: ListProps) {
 	let memoList2:string[] =[]
 	for (const memo of memoList) {
 		const memo2=marked.parse(memo)
-		if (!(memo2 instanceof Promise)) {memoList2.push('<ul style="list-style: disc; padding-left:20px">'+memo2+'</ul>')}
+		if (!(memo2 instanceof Promise)) {memoList2.push('<ul style="list-style: disc; padding-left:10px">'+memo2+'</ul>')}
 	}
     return (
         <ul className="mt-6 space-y-4">
