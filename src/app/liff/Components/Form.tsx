@@ -85,6 +85,7 @@ export default function Form() {
 
     return (
         <div className="px-4 py-4 sm:px-8">
+				<strong><div className="text-orange-600 sm:px-1 font-mono font-extrabold">メモ件数：{memoList.length}</div></strong>
 			<List memoList={memoList} onDelete={handleDelete}/><br/>
 			<div className="mb-1">
                 <form onSubmit={handleSubmit}>
@@ -96,8 +97,8 @@ export default function Form() {
                         onChange={handleInputChange}
 					>
 					</textarea>
-                    	<p><button className="bg-green-700 text-white px-8 py-2 rounded-md sm:p-6" type="submit">add</button><>	</>
-						<button className="bg-orange-300 text-white px-10 py-2 rounded-md sm:p-6" 
+                    	<p><button className="bg-green-700 text-white px-8 py-2 rounded-md sm:p-7" type="submit">add</button><>	</>
+						<button className="bg-orange-300 text-white px-10 py-2 rounded-md sm:p-7" 
 							type="button"
 							onClick={handleClean}
 						>clean</button></p>
