@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 	const mode = await db_response.rows[0].usermode
 	//先に例外的処理を伐採
 	if (e.type != "message") {return Response.json({ status: 'not message' });}
-	if (e.message == "/manual") {
+	if (e.message.text == "/manual") {
 		client.replyMessage(e.replyToken, {
 			type: 'text',
 			text: "操作説明(コマンドについてetc)を記載",
@@ -27,6 +27,9 @@ export async function POST(request: Request) {
 		return Response.json({ status: 'manual' });}
 	//チャット
 	if (mode == -1 && e.message.text != "@memo-mode") {
+		//
+
+		//
 		const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 		const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 		const result = await model.generateContentStream(e.message.text);
@@ -36,15 +39,14 @@ export async function POST(request: Request) {
 			type: 'text',
 			text: id+" "+mode+" "+e.message.text+" -> "+response.text(),
 		});
-		//
-		
 	}
 	else if (mode == -1 && e.message.text == "@memo-mode") {
+		//
+		
 		client.replyMessage(e.replyToken, {
 			type: 'text',
 			text: "メモモード開始"
 		})
-		//
 	}
 	//webhook->send
 	if (1) {
