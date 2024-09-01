@@ -79,9 +79,13 @@ export default function Form() {
 			setNewText('');
 	}
 
-	const countInput = () => {
-		return text.length
-	}
+	const getJaTextLength = (inputText:string) => {
+		const segmenter = new Intl.Segmenter('ja-JP', {
+		  granularity: 'grapheme'
+		});
+	  
+		return [ ...segmenter.segment(inputText) ].length;
+	  }
 
     return (
         <div className="px-4 py-4 sm:px-8">
@@ -105,8 +109,8 @@ export default function Form() {
                 </form>
             </div><br/>
 			<div className="bg-orange-500 text-white sm:px-1">入力文字数</div>
-			<p>{[...text.replace(/( )|(　)|(\n)|(\r)/g,'')].length}</p>
-			{/*一部の絵文字以外は対応可能、空白改行抜き、半角全角同等*/}
+			<p>{getJaTextLength(text.replace(/( )|(　)|(\n)|(\r)/g,''))}</p>
+			{/*絵文字(例えば👨🏻‍🦱)も対応可能、空白改行抜き、半角全角同等*/}
         </div>
     );
 }
