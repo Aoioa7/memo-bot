@@ -17,7 +17,14 @@ export async function POST(request: Request) {
 	await db_client.sql`INSERT INTO userInfo (userID) SELECT ${id} WHERE NOT EXISTS (SELECT 1 FROM userInfo WHERE userID=${id});`
 	const db_response = await db_client.sql`SELECT userMode FROM userInfo WHERE userID=${id}`
 	const mode = await db_response.rows[0].usermode
-	if (e.type != "message") {Response.json({ status: 'not message' });}
+	//先に例外的処理を伐採
+	if (e.type != "message") {return Response.json({ status: 'not message' });}
+	if (e.message == "/manual") {
+		client.replyMessage(e.replyToken, {
+			type: 'text',
+			text: "操作説明(コマンドについてetc)を記載",
+		});
+		return Response.json({ status: 'manual' });}
 	//チャット
 	if (mode == -1 && e.message.text != "@memo-mode") {
 		const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
