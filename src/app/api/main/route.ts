@@ -127,9 +127,12 @@ export async function POST(request: Request) {
 	}
 	//メモのリマインドを設定or未設定
 	else if(mode == 2) {
+		//userInfo。memoIdを取得
+		const preMemoId = await db_client.sql`SELECT memoID FROM userInfo WHERE userID=${id}`
+		const memoId = await preMemoId.rows[0].memoid
 		//リマインド設定しない場合
 		if (textMessage == "x") {
-			await db_client.sql`UPDATE userInfo SET userMode=0 WHERE userID=${id}`
+			await db_client.sql`UPDATE userInfo SET userMode=0,memoID=NULL WHERE userID=${id} AND memoID=${memoId}`
 			client.replyMessage(token, {
 				type: 'text',
 				text: "メモ作成完了",
@@ -153,9 +156,6 @@ export async function POST(request: Request) {
 			});
 			return  Response.json({ status: 'format-error-too-small' }); 
 		}
-		//userInfo。memoIdをs取得
-		const preMemoId = await db_client.sql`SELECT memoID FROM userInfo WHERE userID=${id}`
-		const memoId = await preMemoId.rows[0].memoid
 		//リマインド設定
 		WriteRemindCount(id,memoId,count,token)
 		return  Response.json({ status: 'remind-OK' });

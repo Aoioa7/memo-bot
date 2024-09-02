@@ -79,7 +79,7 @@ export async function WriteRemindCount(userId:string,memoId:string,count:number,
 	//memoinfo。idで特定してremindcountをupdate
 	await db_client.sql`UPDATE memoInfo SET remindCount=${count} WHERE userID=${userId} AND memoID=${memoId}`
 	//userinfo。現在扱っているmemoidをヌルにする。usermodeを0にする
-	await db_client.sql`UPDATE userInfo SET userMode=0,memoID=NULL WHERE userID=${userId}`
+	await db_client.sql`UPDATE userInfo SET userMode=0,memoID=NULL WHERE userID=${userId} AND memoID=${memoId}`
 	//完了のメッセージを返す
 	client.replyMessage(token, {
 		type: 'text',
