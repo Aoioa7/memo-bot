@@ -28,19 +28,14 @@ export async function POST(request: Request) {
 		client.replyMessage(token, {
 			type: 'text',
 			text: `\r現在のモードは${mode}(-1がお喋りモード、0がメモモード、1がメモ内容入力モード、2がリマインド設定モード)\n
-
 			\r-1の時、『@memo-mode』でメモモードに移行(それ以外の入力はお喋りとみなされる)\n
-			
 			\r0の時、『@chat-mode』でお喋りモードに移行\n
 			\r『/show』で現在のメモをリストアップ\n
 			\r『/delete+空白+[メモのID(「/show」で見れる])』でメモを削除\n
 			\r『/create+空白+[タイトル(20字以内)]』でメモを作成開始&1に移行\n
-
 			\r1の時、送信したチャットはそのままメモの内容として登録される&2に移行\n
-			
 			\r2の時、1以上の数字を入力するとその日数が過ぎたときにメモについて通知される&0に移行\n
 			\rちなみに、[x]を入力すれば未設定でスキップできる\n
-			
 			\r『/manual』はどのモードでも使える`,
 		});
 		return Response.json({ status: 'manual' });

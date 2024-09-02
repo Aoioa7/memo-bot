@@ -13,12 +13,20 @@ export async function ShowMemos(userId:string,token:string) {
 	const preMemos = await db_client.sql`SELECT * FROM memoInfo WHERE userID=${userId}`
 	const memos = preMemos.rows
 
+	if (memos.length == 0) {
+		client.replyMessage(token, {
+			type: 'text',
+			text: "メモは無し",
+		});
+		return
+	}
+
 	let stringMemos=""
 	for(const m of memos) {
-		stringMemos+="メモIDは"+m.memoid+"\n"
-		stringMemos+=m.title+"\n\n"
+		stringMemos+="・メモID"+m.memoid+"\n"
+		stringMemos+="・タイトル"+m.title+"\n\n"
 		stringMemos+=m.content+"\n\n"
-		stringMemos+=m.remindcount+"日後にリマインド\n"
+		stringMemos+="・リマインド"+m.remindcount+"日後\n"
 		stringMemos+="----------\n"
 	}
 
