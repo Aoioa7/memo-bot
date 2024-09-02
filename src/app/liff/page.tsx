@@ -7,7 +7,7 @@ import Title from "./Components/Title";
 
 export default function Home() {
 	const [mounted, setMounted] = useState(false);
-
+	//クライアント側か否かのフラグ管理
 	useEffect(()=> {
 	  setMounted(true);
 	}, [])

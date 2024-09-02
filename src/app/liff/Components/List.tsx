@@ -13,6 +13,7 @@ interface ListProps {
     onDelete: (index: number) => void;
 }
 
+//素のテキスト->Markdown->HTMLという変換過程がうまくいくようにreplaceを多用している
 export default function List({ memoList, onDelete }: ListProps) {
 	let memoList2:string[] =[]
 	for (const memo of memoList) {

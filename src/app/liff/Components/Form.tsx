@@ -6,15 +6,16 @@ import List from "./List";
 
 export default function Form() {
 	const key = "memo-list"
+	//ローカルストレージを使用してタブを消してもデータが残るようにした
 	const item = localStorage.getItem(key)
 	let initValue = []
 	if (item) {
 		initValue = JSON.parse(item);
 	}
-
+	//state使用(ライフサイクル間での変数保存)
 	const [memoList, setValues] = useState<string[]>(initValue);
     const [text, setNewText] = useState<string>('');
-
+	//初回マウント時に呼び出されるコールバック関数
 	const callback = (e: StorageEvent) => {
 		if (e.key === key) {
 		  setValues(
@@ -45,6 +46,7 @@ export default function Form() {
 		}
 	  }, [text])
 
+	//入力に応じてstateの更新が起こるようにしている
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewText(e.target.value);
     };
@@ -65,7 +67,7 @@ export default function Form() {
 		);
 		setNewText('');
     };
-
+	//JSONの変換
     const handleDelete = (index: number) => {
         setValues(prevMemoList => {
         const updatedList = [...prevMemoList];
@@ -74,11 +76,11 @@ export default function Form() {
 		return updatedList;
         });
     };
-
+	//消しゴム機能
 	const handleClean = () => {
 			setNewText('');
 	}
-
+	//絵文字などにも対応した、コードポイントまで考慮した文字数取得
 	const getJaTextLength = (inputText:string) => {
 		const segmenter = new Intl.Segmenter('ja-JP', {
 		  granularity: 'grapheme'

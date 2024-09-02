@@ -1,1 +1,0 @@
-//あたらしくメモをinsert、userMode++
