@@ -23,10 +23,10 @@ export async function ShowMemos(userId:string,token:string) {
 
 	let stringMemos=""
 	for(const m of memos) {
-		stringMemos+="・メモID"+m.memoid+"\n"
-		stringMemos+="・タイトル"+m.title+"\n\n"
+		stringMemos+="・メモID\n"+m.memoid+"\n"
+		stringMemos+="・タイトル\n"+m.title+"\n\n"
 		stringMemos+=m.content+"\n\n"
-		stringMemos+="・リマインド"+m.remindcount+"日後\n"
+		stringMemos+="・リマインド\n"+m.remindcount+"日後\n"
 		stringMemos+="----------\n"
 	}
 

@@ -129,6 +129,7 @@ export async function POST(request: Request) {
 	else if(mode == 2) {
 		//リマインド設定しない場合
 		if (textMessage == "x") {
+			await db_client.sql`UPDATE userInfo SET userMode=0 WHERE userID=${id}`
 			client.replyMessage(token, {
 				type: 'text',
 				text: "メモ作成完了",

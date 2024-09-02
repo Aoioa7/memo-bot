@@ -13,7 +13,7 @@ const client = new line.Client(config);
 export async function GET (request: Request) {
 	const db_client =  await db.connect();
 	//memoinfo。remindcountがnullじゃない時、そのカラムを格納された数-1にupdate
-	await db_client.sql`UPDATE memoInfo SET remindCount=remindCount-1 WHERE remindCount IS NOT NULL `
+	await db_client.sql`UPDATE memoInfo SET remindCount=remindCount-1 WHERE remindCount IS NOT NULL`
 	//memoinfo。remindcountが0のレコード群をselect(初期値としての0は事前に弾く)
 	const preMemos = await db_client.sql`SELECT * FROM memoInfo WHERE remindCount=0`
 	const memos=preMemos.rows
@@ -21,7 +21,7 @@ export async function GET (request: Request) {
 	//レコード群から順にリマインド送信。
 	for (const m of memos) {
 		//userIdごとに
-		const message="メモIDは"+m.memoid+"\n"+m.title+"\n\n"+m.content+"\n"+"----------\n"
+		const message="メモID\n"+m.memoid+"\n"+"タイトル\n"+m.title+"\n\n"+m.content+"\n\n"+"----------\n"
 		await client.pushMessage(m.userid, {
 			type: "text",
 			text: message,
