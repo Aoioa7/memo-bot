@@ -12,7 +12,7 @@ export default function Form() {
 	if (item) {
 		initValue = JSON.parse(item);
 	}
-	//state使用(ライフサイクル間での変数保存)
+	//state使用(ライフサイクル内での変数保存)
 	const [memoList, setValues] = useState<string[]>(initValue);
     const [text, setNewText] = useState<string>('');
 	//初回マウント時に呼び出されるコールバック関数

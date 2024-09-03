@@ -96,7 +96,7 @@ export async function POST(request: Request) {
 
 		//削除
 		if (command[0] == "/delete") {
-			//チャットの後半だけ取得
+			//チャットの後半を取得
 			DeleteMemo(id,command[1],token)
 			return  Response.json({ status: 'delete-OK' });
 		}
