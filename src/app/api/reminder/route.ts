@@ -22,11 +22,10 @@ export async function GET (request: Request) {
 	for (const m of memos) {
 		//userIdごとに
 		const message="メモID\n"+m.memoid+"\n"+"タイトル\n"+m.title+"\n\n"+m.content+"\n\n"+"----------\n"
-		await client.pushMessage(m.userid, {
+		client.pushMessage(m.userid, {
 			type: "text",
 			text: message,
 		  });
 	}
-
-	return Response.json({ status: "OK" }) 
+	return Response.json({ status: memos }) 
 }
