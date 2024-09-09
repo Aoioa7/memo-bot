@@ -2,7 +2,7 @@ name: CI
 on: push
 
 jobs:
-  run_prettier:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -11,7 +11,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '20.x'
 
       - name: Install Dependencies
         run: |
