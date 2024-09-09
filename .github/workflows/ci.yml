@@ -15,7 +15,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install
+          npm install npm install --save --legacy-peer-deps
       - name: Run prettier
         run: |
           npx prettier --check .
